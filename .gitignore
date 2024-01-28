@@ -37,7 +37,7 @@ build/
 .env.production.local
 
 # dotenv environment variables file
-.env
+# .env
 
 # Docker Compose files
 docker-compose.yml
