@@ -29,7 +29,7 @@ const addLocationInfo = async (hotelId, locationInfo) => {
     if (!hotel) {
       throw new Error("Hotel not found");
     }
-    
+
     // Check if location information has been updated
     const locationUpdated = Object.keys(locationInfo).some(
       (key) => locationInfo[key] !== hotel[key]
@@ -65,8 +65,6 @@ const addMedia = async ({ hotelId, thumbnail, gallery }) => {
 
     const thumbnailPath = thumbnail[0].originalname;
     const galleryPaths = gallery.map((file) => file.originalname);
-    // const thumbnailPath = await saveFile(thumbnail, "thumbnails");
-    // const galleryPaths = await Promise.all(gallery.map(file => saveFile(file, "gallery")));
 
     // Assuming you have an array field in your Hotel model to store gallery paths
     hotel.gallery = [...(hotel.gallery || []), ...galleryPaths];
@@ -82,10 +80,7 @@ const addMedia = async ({ hotelId, thumbnail, gallery }) => {
   }
 };
 
-
-
 const addPropertyRules = async (hotelId, propertyRulesInfo) => {
-    
   try {
     // Find the hotel by ID
     const hotel = await Hotel.findById(hotelId);
@@ -96,19 +91,20 @@ const addPropertyRules = async (hotelId, propertyRulesInfo) => {
 
     // const propertyRulesUpdated = Object.keys(propertyRulesInfo)
     // console.log(propertyRulesUpdated);
-    
-//     // Check if property rules information has been updated
+
+    //     // Check if property rules information has been updated
     // const propertyRulesUpdated = Object.keys(propertyRulesInfo).some(
     //   (key) => propertyRulesInfo[key] !== hotel[key]
     // );
     // Exclude 'PaymentMethods' from comparison
-    const keysToCheck = Object.keys(propertyRulesInfo).filter(key => key !== 'PaymentMethods');
+    const keysToCheck = Object.keys(propertyRulesInfo).filter(
+      (key) => key !== "PaymentMethods"
+    );
 
     // Check if any property rules information (excluding 'PaymentMethods') has been updated
     const propertyRulesUpdated = keysToCheck.some(
-      key => hotel[key] !== propertyRulesInfo[key]
+      (key) => hotel[key] !== propertyRulesInfo[key]
     );
-    
 
     if (propertyRulesUpdated) {
       // Add or update property rules information
@@ -121,15 +117,15 @@ const addPropertyRules = async (hotelId, propertyRulesInfo) => {
       hotel.petsRules = propertyRulesInfo.petsRules || hotel.petsRules;
       hotel.childRules = propertyRulesInfo.childRules || hotel.childRules;
 
-        // Update payment methods
-        const paymentMethods = propertyRulesInfo.PaymentMethods || [];
-        
-        hotel.paymentMethods = paymentMethods.map((method) => ({
-          label: method.label || '',
-          value: method.value || '',
-        }));
+      // Update payment methods
+      const paymentMethods = propertyRulesInfo.PaymentMethods || [];
 
-        await hotel.save();
+      hotel.paymentMethods = paymentMethods.map((method) => ({
+        label: method.label || "",
+        value: method.value || "",
+      }));
+
+      await hotel.save();
       return { hotel, statusCode: 200 }; // Send status code 200 if propertyRulesInfo info is updated
     } else {
       return { hotel, statusCode: 202 }; // Send status code 202 if propertyRulesInfo info is not updated
@@ -139,9 +135,8 @@ const addPropertyRules = async (hotelId, propertyRulesInfo) => {
   }
 };
 
-
 const addFacilities = async (hotelId, facilities) => {
-  console.log("facilities in service: ",facilities);
+  console.log("facilities in service: ", facilities);
   try {
     // Find the hotel by ID
     const hotel = await Hotel.findById(hotelId);
@@ -162,8 +157,6 @@ const addFacilities = async (hotelId, facilities) => {
   }
 };
 
-
-
 const getHotels = async () => {
   try {
     const hotels = await Hotel.find();
@@ -173,8 +166,7 @@ const getHotels = async () => {
     throw error;
   }
 };
-  
-  
+
 const createHotel = async (hotelBody) => {
   console.log("hotelBody", hotelBody);
   const newHotel = await Hotel.create(hotelBody);
@@ -189,5 +181,5 @@ module.exports = {
   addMedia,
   addPropertyRules,
   addFacilities,
-  getHotels
+  getHotels,
 };

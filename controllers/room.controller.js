@@ -9,6 +9,12 @@ const { roomService } = require("../services");
     const roomData = req.body;
     const thumbnail = req.files.thumbnail; 
     console.log("thumbnail  files: ", thumbnail[0].originalname);
+
+    // Extract gallery files from req.files array
+    const gallery = req.body.gallery.filter(file => file.fieldname.startsWith('gallery'));
+    // const gallery = req.files.gallery.filter(file => file.fieldname.startsWith('gallery'));
+
+    console.log("gallary request: ",gallery);
     // const thumbnail = req.files.thumbnail; // Assuming the thumbnail is a single file
         
     // Extract gallery files from req.files array

@@ -18,11 +18,7 @@ const upload = multer({
     }),
   }).fields([
     { name: 'thumbnail', maxCount: 1 },
-    // { name: 'gallery', maxCount: 10 },
-    { name: 'gallery[0]', maxCount: 10 },
-    { name: 'gallery[1]', maxCount: 10 },
-    { name: 'gallery[2]', maxCount: 10 },
-    // Add more fields if needed based on the expected number of gallery images
+    { name: 'gallery', maxCount: 10 },
   ]);
 
 

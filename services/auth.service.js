@@ -25,7 +25,6 @@ const loginUserWithEmailAndPassword = async (email, password) => {
 const logoutUser = async (token) => {
   // Assuming your user model has a field called 'tokens' to store the tokens
   const user = await userService.getUserByToken(token);
-  console.log(user);
   if (user) {
     // Remove the token from the user's tokens array
     user.remembertoken = '';
