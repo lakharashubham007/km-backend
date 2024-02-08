@@ -1,11 +1,13 @@
 
 const { Room } = require("../models");
 
-const addRoom = async (hotelId, roomData ,thumbnail) => {
+const addRoom = async (hotelId, roomData ,thumbnail,gallery) => {
     console.log("roomData in service file",roomData);
   try {
     const thumbnailPath = thumbnail[0].originalname;
-    const room = await Room.create({ hotel: hotelId, ...roomData , thumbnail:thumbnailPath });
+    const galleryPaths = gallery.map((file) => file.originalname);
+    console.log("galleryPaths in service file", galleryPaths);
+    const room = await Room.create({ hotel: hotelId, ...roomData , thumbnail:thumbnailPath , gallery: galleryPaths});
     return { message: "Room added successfully", room };
   } catch (error) {
     console.error("Error adding room:", error);

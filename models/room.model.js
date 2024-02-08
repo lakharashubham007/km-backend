@@ -7,7 +7,7 @@ const roomSchema = new mongoose.Schema({
   facilities: [{ type: String }],
   description: { type: String },
   thumbnail: { type: String },
-  gallary: [{ type: String }],
+  gallery: [{ type: String }],
   max_adults: { type: Number },
   max_children: { type: Number },
   min_people: { type: Number },

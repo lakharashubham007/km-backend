@@ -34,7 +34,7 @@ const addMedia = async (req, res, next) => {
     
     const { hotelId } = req.params;
     const thumbnail = req.files.thumbnail; // Assuming the thumbnail is a single file
-    
+ 
     // Extract gallery files from req.files array
     const gallery = req.files.gallery.filter(file => file.fieldname.startsWith('gallery'));
     
